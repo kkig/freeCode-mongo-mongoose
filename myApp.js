@@ -4,8 +4,7 @@ const mongoose = require('mongoose');
 
 const Person = require('./models/person');
 
-//
-// Connect to the database
+/* Connect to the database */
 mongoose
   .connect(process.env.MONGO_URI, {
     useNewUrlParser: true,
