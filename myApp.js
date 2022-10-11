@@ -2,6 +2,7 @@ require('dotenv').config();
 
 const mongoose = require('mongoose');
 
+/* Model */
 const Person = require('./models/person');
 
 /* Connect to the database */
@@ -17,8 +18,20 @@ mongoose
     console.error(`Database connection error: ${err}`);
   });
 
+/* Create and Save a Record of a Model */
 const createAndSavePerson = (done) => {
-  done(null /*, data*/);
+  // Create document instance
+  const satoshi = new Person({
+    name: 'Satosh',
+    age: 19,
+    favoriteFoods: ['Chocolate', 'Pankake', 'Banana'],
+  });
+
+  satoshi.save(function (err, data) {
+    if (err) return console.error(err);
+
+    done(null, data);
+  });
 };
 
 const createManyPeople = (arrayOfPeople, done) => {
