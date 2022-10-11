@@ -63,8 +63,19 @@ const createManyPeople = (arrayOfPeople, done) => {
   });
 };
 
+/* Use model.find() to Search Database */
 const findPeopleByName = (personName, done) => {
-  done(null /*, data*/);
+  // $lte => Less than or equal to a specified value...lists below
+  // https://www.mongodb.com/docs/manual/reference/operator/query/
+  Person.find(
+    {name: personName /* age: {$lte: 20} */},
+    function (err, personFound) {
+      if (err) return console.error(err);
+
+      console.log(personFound);
+      done(null, personFound);
+    }
+  );
 };
 
 const findOneByFood = (food, done) => {
