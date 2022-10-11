@@ -34,8 +34,33 @@ const createAndSavePerson = (done) => {
   });
 };
 
+/* Create Many Records with model.create() */
+const arrayOfPeople = [
+  {
+    name: 'RobotMama',
+    age: 999,
+    favoriteFoods: ['Oil', 'hydrogen', 'Battery'],
+  },
+  {
+    name: 'Mario',
+    age: 32,
+    favoriteFoods: ['Pizza', 'Pasta', 'Mushroom', 'Star'],
+  },
+  {
+    name: 'Link',
+    name: 17,
+    favoriteFoods: ['Mushroom'],
+  },
+];
+
 const createManyPeople = (arrayOfPeople, done) => {
-  done(null /*, data*/);
+  // Create instances of models
+  // MyModels.create() will trigger .save() middleware to save them in DB
+  Person.create(arrayOfPeople, function (err, data) {
+    if (err) return console.error(err);
+
+    done(null, data);
+  });
 };
 
 const findPeopleByName = (personName, done) => {
