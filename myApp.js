@@ -102,10 +102,24 @@ const findPersonById = (personId, done) => {
   });
 };
 
+/* Perform Classic Updates by Running Find, Edit, then Save */
 const findEditThenSave = (personId, done) => {
   const foodToAdd = 'hamburger';
 
-  done(null /*, data*/);
+  Person.findById(personId, function (err, person) {
+    if (err) return console.log(err);
+
+    // Add "hamburger" to the list
+    person.favoriteFoods.push(foodToAdd);
+
+    // Save the updated Person
+    person.save(function (err, updatedPerson) {
+      if (err) return console.log(err);
+
+      console.log(updatedPerson);
+      done(null, updatedPerson);
+    });
+  });
 };
 
 const findAndUpdate = (personName, done) => {
