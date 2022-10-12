@@ -162,10 +162,20 @@ const removeManyPeople = (done) => {
   });
 };
 
+/* Chain Search Query Helpers to Narrow Search Results */
 const queryChain = (done) => {
   const foodToSearch = 'burrito';
 
-  done(null /*, data*/);
+  Person.find({favoriteFoods: foodToSearch})
+    .sort({name: 'asc'}) // ex. {name: 'asc'} or {name: 1}. Desc => .sort('-name'), {name: 'desc'} or {name: -1}
+    .limit(2) // Specifies the max number of docs to return.
+    .select('-age') // Specifies doc fields. ex. {age: 1, name: 0} or ['age', '-name'].
+    .exec(function (err, data) {
+      if (err) return console.log(err);
+
+      console.log(data);
+      done(null, data);
+    });
 };
 
 /** **Well Done !!**
