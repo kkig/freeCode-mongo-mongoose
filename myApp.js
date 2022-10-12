@@ -78,8 +78,18 @@ const findPeopleByName = (personName, done) => {
   );
 };
 
+/* Use model.findOne() to Return a SINGLE Matching Document from the Database */
 const findOneByFood = (food, done) => {
-  done(null /*, data*/);
+  Person.findOne(
+    {favoriteFoods: food},
+    /* 'name favoriteFoods', */
+    function (err, dataByFood) {
+      if (err) return console.error(err);
+
+      console.log(dataByFood);
+      done(null, dataByFood);
+    }
+  );
 };
 
 const findPersonById = (personId, done) => {
